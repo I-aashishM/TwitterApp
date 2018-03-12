@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    {% load staticfiles %}
+
+
+{% load socialaccount %}
+{% providers_media_js %}
+
+
+<h2>INDEX</h2>
+<div id="flex">
+<div class="left">
+    <img src="{% static 'images/twitter_image.png' %}" alt="">
+        <div class="tag">
+
+            <h4><i class="fa fa-search"></i> Follow your interests.</h4>
+            <h4><i class="fa fa-users"></i> Hear what people are talking about.</h4>
+            <h4><i class="fa fa-comment"></i> Join the conversation.</h4>
+
+            </div>
+</div>
+
+<div class="right">
+<h4><img src="{% static 'images/Twitter.png' %}" alt="">See what’s happening in the world right now</h4>
+    <h5>Join Twitter today.</h5>
+
+    <form method="post">
+    {% csrf_token %}
+        <div class="login">
+    {{form.as_p}}
+    <button type="submit" class="btn btn-outline-info" style="margin:5% 15%">Login</button>
+        </div>
+
+        <a href="{% provider_login_url 'facebook' %}">Login</a>
+  </form>
+</div>
+    </div>
+{% endblock %}

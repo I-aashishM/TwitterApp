@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            {% if user.userprofile.profile_image %}
+            <div class="img1">
+            <img src="/twitter{{user.userprofile.profile_image.url}}" width="100%" alt="profile_pic">
+            </div>
+                {% endif %}
+        </div>
+        <div class="pic">
+                    <form method="post" enctype="multipart/form-data">{% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" value="Submit" />
+                    </form>
+                </div>
+        {% for q in userprofile %}
+        <p>{{q.profile_image}}</p>
+        {% endfor %}
+        <div class="col-md-8">
+            <p><strong>First Name : </strong>{{user.first_name}}</p>
+            <p><strong>Last Name : </strong>{{user.last_name}}</p>
+            <p><strong>Email ID : </strong>{{user.email}}</p>
+            <p><strong>Description : </strong>{{user.userprofile.description}}</p>
+            <p><strong>City : </strong>{{user.userprofile.city}}</p>
+            <p><strong>Website : </strong>{{user.userprofile.website}}</p>
+            <p><strong>Phone No : </strong>{{user.userprofile.phoneNo}}</p>
+        </div>
+    </div>
+    <hr>
+
+    <h2 style=" text-align: center">TIMELINE</h2>
+
+    <div class="row">
+            {% for userp in blog %}
+        <div class="col-md-6">
+            <p> <img src="/twitter{{user.userprofile.profile_image.url}}" width="10%" alt="profile_pic">
+           <strong>@{{userp.user}}</strong></p>
+            <p style="margin-left:10%;">{{userp.post}}</p>
+            <small style="margin-left:25%">{{userp.datetime}}</small>
+
+        </div>
+     {% endfor %}
+        {% for p in profile_comment %}
+        <div class="col-md-6">
+            <p> <img src="/twitter{{user.userprofile.profile_image.url}}" width="10%" alt="profile_pic">
+           <strong>@{{p.user}}</strong></p>
+            <p style="margin-left:10%;">{{p.post}}</p>
+            <small style="margin-left:25%">{{p.datetime}}</small>
+
+        </div>
+        {% endfor %}
+    </div>
+
+
+</div>
+{% endblock %}

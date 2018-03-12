@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<h2>home page</h2>
+{% if user.is_authenticated %}
+<h5>WELCOME: {{current}}</h5>
+<form method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" class="btn btn-info">Post</button>
+        </form>
+<div class="row">
+
+    <div class="col-md-8">
+
+            {% for n in image %}
+            <img src="/twitter/media/{{n.profile_image}} " width="7%" alt="">
+            {% endfor %}
+
+        {% for d in comments %}
+                    <hr>
+                    <article class="post">
+                        <h5>@{{d.user}}</h5>
+                        <p>{{d.post}}</p>
+                        <a href=""><i class="fa fa-thumbs-up"></i></a>
+                        <a href=""><i class="fa fa-comment"></i></a>
+                        <blockquote>{{d.date}}</blockquote>
+                    </article>
+        {% endfor %}
+
+
+</div>
+ <div class="col-md-4" style="margin-top: -20%;">
+        <h2>Suggested Friends</h2>
+        <ul class="list-group">
+            {% for friend in friends %}
+            <li class="list-group-item">
+                <a href="{% url 'twitter:profile_with_pk' pk=friend.pk %}">
+                    {{friend}}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
